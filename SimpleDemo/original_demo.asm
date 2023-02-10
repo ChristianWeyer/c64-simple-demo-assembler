@@ -1,37 +1,38 @@
 ;////////////////////////////////////////////////
 ;//                                            //
-;// Assembler Corner 64er von 10-1993          //
-;//                                            //
-;// Demo - Programmierung                      //
-;//                                            //
+;// Assembler Corner C64�er von 1993           //
+;//                 //
+;// Demo - Programmierung         //
+;//               //
 ;////////////////////////////////////////////////
 
-!to "bastademo.prg",cbm 
+!to "demo64er.prg",cbm 
 !cpu 6502
 
-;-------Zeichensaetze in den Speicher laden
-* = $2800
-!bin "..\charsets\char4.bin",,2         ;Font1 liegt bei $2800  
-* = $3000
-!bin "..\charsets\char1.bin",,2         ;Font2 liegt bei $3000
+;-------Zeichens�tze in den Speicher laden
 
-;-------SID Tune in den Speicher laden
+* = $2800
+!bin "..\charsets\char4.bin",,2     ;Font1 liegt bei $2800  
+* = $3000
+!bin "..\charsets\char1.bin",,2     ;Font2 liegt bei $3000
+
+;-------Sid Tune in den Speich laden
 *=$8000 
-!binary "..\music\music.sid",,$7c+2     ;SID-Tune liegt bei $8000
+!binary "..\music\music.sid",,$7c+2     ;Sid-Tune liegt bei $1000
 
 ;---------------------------------------
 ;--------VARIABLEN SETZEN---------------
 ;---------------------------------------
 
-IRQLOW    = $0314       ;IRQ-VEKTOR LOWBYTE
-IRQHIG    = $0315       ;           HIGHBYTE
+IRQLOW  = $0314       ;IRQ-VEKTOR LOWBYTE
+IRQHIG  = $0315       ;           HIGHBYTE
 OLDIRQ    = $EA31       ;ALTE IRQ-ROUTINE
 
 INITMUSIC = $8000       ;MUSIK INITIALISIEREN
 PLAYMUSIC = $8012       ;ABSPIELEN
 
 FLASHCOUNT  = $FB       ;ZAEHLER 1 UND 2
-FLASHCOUNT2 = $FC       ;FUER FLASH-EFFEKTE
+FLASHCOUNT2= $FC      ;FUER FLASH-EFFEKTE
 
 SCRHELP   = $03FB       ;HILFSREGISTER F.
 SCROLLREG = $D016       ;SCROLLREGISTER
@@ -41,8 +42,7 @@ RASTER    = $D012       ;RASTERSTRAHL-POS
 YSCROLL   = $D011       ;Y-SCROLL-REGISTER
 IMR       = $D01A       ;IRQ MASK REGISTER
 
-*=$4000                 ;Programm liegt bei $4000
-
+*=$4000         ; Programm liegt bei $4000
 ;---------------------------------------
 ;--------IRQ VORBEREITEN----------------
 ;---------------------------------------
@@ -67,7 +67,7 @@ IMR       = $D01A       ;IRQ MASK REGISTER
          STA IMR          ;FESTLEGEN
 
          LDA #$00         ;MUSIK
-         JSR INITMUSIC    ;INITIALISIEREN
+         JSR INITMUSIC      ;INITIALISIEREN
          CLI              ;IRQ FREIGEBEN
          JMP *            ;ENDLOS-SCHLEIFE
 
@@ -127,7 +127,7 @@ FLASH1   STA $DA08,Y      ;SCHREIBEN SOLANG
          STA FLASHCOUNT   ;ZURUECKSETZEN
 FLASHEND RTS              ;ENDE
 
-FLASHTAB                  ;FARBWERTE
+FLASHTAB          ;FARBWERTE
          !BYTE $02,$02,$02,$0A,$0A,$0A
          !BYTE $07,$07,$07,$0F,$0F,$0F
          !BYTE $07,$07,$07,$0A,$0A,$0A
@@ -146,7 +146,7 @@ CHARFL1  LDA $DB21,X      ;$DB47
          STY $DB47        ;SPEICHER
          RTS              ;ENDE
 
-FLASHTAB2                 ;FARBTABELLE
+FLASHTAB2           ;FARBTABELLE
          !BYTE $06,$06,$06,$04,$04,$04
          !BYTE $0E,$0E,$0E,$03,$03,$03
          !BYTE $0F,$0F,$0F,$01,$01,$01
@@ -192,8 +192,7 @@ CONT     STA $0747          ;ZEICHEN SCHREIBEN
                             ;UM EINS ADDIEREN
 SCREND   RTS                ;ENDE
 
-;--- Lauftext ---
-TEXT     !SCR "proudly presented by joerg and christian..."   ;MAX. 255 ZEICHEN
+TEXT      !SCR ".....HIER STEHT DEIN TEXT....."   ;MAX. 255 ZEICHEN
          !BYTE $00
 
 ;---------------------------------------
@@ -267,15 +266,15 @@ INIT     LDA #$C7           ;HILFSREGISTER
          STA $0286          ;FARBRAM
          JSR $E544          ;SCREEN LOESCHEN
 
-         LDX #$00           ;SCREEN1
-INIT1    LDA SCREEN1,X      ;TEXT
-         STA $0454,X        ;OBEN
+         LDX #$00           ;"DEMO TEST
+INIT1    LDA SCREEN1,X      ; GROSSER
+         STA $0454,X        ; ZEICHENSATZ"
          INX                ;AUF DEN
-         CPX #$C4           ;BILDSCHIRM
+         CPX #$EC           ;BILDSCHIRM
          BNE INIT1          ;SCHREIBEN
 
-         LDX #$77           ;SCREEN2
-INIT3    LDA SCREEN2,X      ;TEXT
+         LDX #$77           ;"KLEINER
+INIT3    LDA SCREEN2,X      ; ZEICHENSATZ"
          STA $0608,X        ;AUF DEN
          DEX                ;BILDSCHIRM
          BPL INIT3          ;SCHREIBEN
@@ -292,12 +291,50 @@ INIT4    LDA FLASHTAB2,X    ;IN COLOR-RAM
          STA CHARSET        ;ANSCHALTEN
          RTS                ;ENDE
 
-;--- Oberer Text ---
-SCREEN1 !SCR "b a s t a !  s p r i n g  2 0 2 3"
-        !SCR "                                         "
-        !SCR "                                         "
-        !SCR "                                         "
-        !SCR "        c64 night session rocks!!!      "
+;--"DEMO TEST GROSSER ZEICHENSATZ"------
 
-;--- Mittlerer Text ---
-SCREEN2  !SCR "chuck peddle ist der goat: mos 6502 und commodore pet - steve jobs hat user hervor gebracht, jack tramiel programmierer."
+SCREEN1  !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $04,$44,$05,$45,$0D,$4D
+         !BYTE $0F,$4F,$2D,$14,$54,$05
+         !BYTE $45,$13,$53,$14,$54,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$84,$C4
+         !BYTE $85,$C5,$8D,$CD,$8F,$CF
+         !BYTE $AD,$94,$D4,$85,$C5,$93
+         !BYTE $D3,$94,$D4,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$07,$47,$12,$52
+         !BYTE $0F,$4F,$13,$53,$13,$53
+         !BYTE $05,$45,$12,$52,$20,$1A
+         !BYTE $5A,$05,$45,$09,$49,$03
+         !BYTE $43,$08,$48,$05,$45,$0E
+         !BYTE $4E,$13,$53,$01,$41,$14
+         !BYTE $54,$1A,$5A,$20,$20,$20
+         !BYTE $87,$C7,$92,$D2,$8F,$CF
+         !BYTE $93,$D3,$93,$D3,$85,$C5
+         !BYTE $92,$D2,$A0,$9A,$DA,$85
+         !BYTE $C5,$89,$C9,$83,$C3,$88
+         !BYTE $C8,$85,$C5,$8E,$CE,$93
+         !BYTE $D3,$81,$C1,$94,$D4,$9A
+         !BYTE $DA,$20,$20,$20,$20,$20
+         !BYTE $20,$20,$20,$20,$00
+         
+;---"KLEINER ZEICHENSATZ"---------------
+
+SCREEN2  !SCR "hier kommen die Zeichen f�r euer kleiner Zeichsatz rein"
