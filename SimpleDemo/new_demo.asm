@@ -293,11 +293,11 @@ INIT4    LDA FLASHTAB2,X    ;IN COLOR-RAM
          RTS                ;ENDE
 
 ;--- Oberer Text ---
-SCREEN1 !SCR "b a s t a !  s p r i n g  2 0 2 3"
+SCREEN1 !SCR "b a s t a!  s p r i n g  2 0 2 3 "
         !SCR "                                         "
         !SCR "                                         "
         !SCR "                                         "
         !SCR "        c64 night session rocks!!!      "
 
 ;--- Mittlerer Text ---
-SCREEN2  !SCR "chuck peddle ist der goat: mos 6502 und commodore pet - steve jobs hat user hervor gebracht, jack tramiel programmierer."
+SCREEN2  !SCR "chuck peddle ist der goat: mos 6502 und commodore pet - steve jobs hat user her-vor gebracht, jack tramiel programmierer"
