@@ -11,13 +11,13 @@
 
 ;-------Zeichensaetze in den Speicher laden
 * = $2800
-!bin "..\charsets\char4.bin",,2         ;Font1 liegt bei $2800  
+!bin "..\..\assets\charsets\char4.bin",,2         ;Font1 liegt bei $2800  
 * = $3000
-!bin "..\charsets\char1.bin",,2         ;Font2 liegt bei $3000
+!bin "..\..\assets\charsets\char1.bin",,2         ;Font2 liegt bei $3000
 
 ;-------SID Tune in den Speicher laden
 *=$8000 
-!binary "..\music\music.sid",,$7c+2     ;SID-Tune liegt bei $8000
+!binary "..\..\assets\music\music.sid",,$7c+2     ;SID-Tune liegt bei $8000
 
 ;---------------------------------------
 ;--------VARIABLEN SETZEN---------------
